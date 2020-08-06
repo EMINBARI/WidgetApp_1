@@ -12,10 +12,13 @@ struct CurrencyCellView: View {
     let previousExchangeRate: Double
     let countryISO: String
     let currencyISO: String
+    
+    let imageType = "_circled"
+    let dynamicsImagesSize: CGFloat = 18
         
     var body: some View {
         HStack {
-            Image(self.countryISO + "_circled")
+            Image(self.countryISO + imageType)
                 .resizable()
                 .frame(width: 32.0, height: 32.0)
             Spacer()
@@ -30,36 +33,36 @@ struct CurrencyCellView: View {
             if previousExchangeRate == exchangeRate {
                 Image("equal")
                     .resizable()
-                    .frame(width: 28, height: 28)
+                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
                     .padding(.leading, 10)
             } else if (previousExchangeRate - exchangeRate < 0) {
                 Image("growUp")
                     .resizable()
-                    .frame(width: 28, height: 28)
+                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
                     .padding(.leading, 10)
             } else {
                 Image("goDown")
                     .resizable()
-                    .frame(width: 28, height: 28)
+                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
                     .padding(.leading, 10)
             }
-            
         }.padding(.horizontal, 10)
     }
 }
 
+//MARK: - That's for debuggin preview
 struct CurrencyCellViewPreviews: PreviewProvider {
     static var previews: some View {
         
         ZStack {
             let colors = Gradient(colors: [.purple, .blue])
-            let conic = LinearGradient(
+            let rectangleGradient = LinearGradient(
                 gradient: colors,
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
             
-            Rectangle().fill(conic)
+            Rectangle().fill(rectangleGradient)
             
             CurrencyCellView(
                 exchangeRate: 0.0,

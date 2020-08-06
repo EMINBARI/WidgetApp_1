@@ -38,7 +38,7 @@ struct DataProvider: TimelineProvider{
             
             guard
                 let dollar = exchData.valute["USD"]?.value,
-                let euro = exchData.valute["USD"]?.value,
+                let euro = exchData.valute["EUR"]?.value,
                 let pound = exchData.valute["GBP"]?.value
                 else{
                     fatalError("Error with fetching data")
@@ -46,7 +46,7 @@ struct DataProvider: TimelineProvider{
 
             guard
                 let dollarPrevious = exchData.valute["USD"]?.previous,
-                let euroPrevious = exchData.valute["USD"]?.previous,
+                let euroPrevious = exchData.valute["EUR"]?.previous,
                 let poundPrevious = exchData.valute["GBP"]?.previous
                 else{
                     fatalError("Error with fetching data")

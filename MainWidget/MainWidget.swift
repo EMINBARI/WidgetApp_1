@@ -11,11 +11,16 @@ import SwiftUI
 struct WidgetView: View {
     var data: DataProvider.Entry
     
-    var body: some View{
+    var body: some View {
         ZStack {
             let colors = Gradient(colors: [.purple, .blue])
-            let conic = LinearGradient(gradient: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
-            Rectangle().fill(conic)
+            let rectangleGradient = LinearGradient(
+                gradient: colors,
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            
+            Rectangle().fill(rectangleGradient)
             
             VStack(alignment: .leading) {
                 Spacer()
@@ -49,6 +54,7 @@ struct WidgetView: View {
 @main
 struct Config: Widget {
     private let kind: String = "MainWidget"
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(
             kind: kind,
