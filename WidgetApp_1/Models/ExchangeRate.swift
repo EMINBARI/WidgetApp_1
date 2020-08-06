@@ -40,4 +40,3 @@ struct Valute: Decodable {
         case previous = "Previous"
     }
 }
-

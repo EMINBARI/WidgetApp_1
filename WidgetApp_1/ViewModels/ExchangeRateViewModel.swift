@@ -7,13 +7,14 @@
 
 import Foundation
 
+//MARK: - Out-of-use class
 class ExchangeRateViewModel: ObservableObject {
     @Published var exchangeData: ExchangeRate?
     
     init() {
         fetchData()
     }
-        
+    
     func fetchData(){
         guard let url = URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") else{
             fatalError("Invalid URL adress")
@@ -34,8 +35,6 @@ class ExchangeRateViewModel: ObservableObject {
                 
                 do {
                     self.exchangeData = try JSONDecoder().decode(ExchangeRate.self, from: data)
-                    print("--fetch--")
-                    print(self.exchangeData?.valute.count)
                 } catch let err {
                     print("Error: \(err)")
                 }
