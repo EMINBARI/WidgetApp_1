@@ -8,12 +8,12 @@
 import SwiftUI
 import WidgetKit
 
-struct DataProvider: TimelineProvider{
+struct DataProvider: TimelineProvider {
     
     func timeline(with context: Context, completion: @escaping (Timeline<WidgetDataModel>) -> ()) {
         let date = Date()
 
-        ExchangeRateLoader().fetchData{ result in
+        ExchangeRateLoader().fetchData { result in
             let exchData: ExchangeRate
             if case .success(let fetchedExchData) = result {
                 exchData = fetchedExchData

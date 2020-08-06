@@ -30,18 +30,18 @@ struct CurrencyCellView: View {
                 .foregroundColor(.white)
                 .font(.title2)
             
-            if previousExchangeRate == exchangeRate {
-                Image("equal")
-                    .resizable()
-                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
-                    .padding(.leading, 10)
-            } else if (previousExchangeRate - exchangeRate < 0) {
+            if previousExchangeRate < exchangeRate {
                 Image("growUp")
                     .resizable()
                     .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
                     .padding(.leading, 10)
-            } else {
+            } else if previousExchangeRate > exchangeRate  {
                 Image("goDown")
+                    .resizable()
+                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
+                    .padding(.leading, 10)
+            } else if previousExchangeRate == exchangeRate {
+                Image("equal")
                     .resizable()
                     .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
                     .padding(.leading, 10)
