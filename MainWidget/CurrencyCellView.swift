@@ -14,13 +14,31 @@ struct CurrencyCellView: View {
     let currencyISO: String
     
     let imageType = "_circled"
-    let dynamicsImagesSize: CGFloat = 18
+    let dynamicsImagesSize: CGFloat = 18.0
+    let countryImagesSize: CGFloat = 32.0
+    let imagePadding: CGFloat = 10.0
+    
+    let growUpImageName = "growUp"
+    let goDownImageName = "goDown"
+    let equalImageName = "equal"
+    
+    var dynamicsImage: String {
+        get{
+            if previousExchangeRate < exchangeRate {
+                return growUpImageName
+            } else if previousExchangeRate > exchangeRate {
+                return goDownImageName
+            } else {
+                return equalImageName
+            }
+        }
+    }
         
     var body: some View {
         HStack {
             Image(self.countryISO + imageType)
                 .resizable()
-                .frame(width: 32.0, height: 32.0)
+                .frame(width: countryImagesSize, height: countryImagesSize)
             Spacer()
             Text(self.currencyISO)
                 .foregroundColor(.white)
@@ -30,22 +48,11 @@ struct CurrencyCellView: View {
                 .foregroundColor(.white)
                 .font(.title2)
             
-            if previousExchangeRate < exchangeRate {
-                Image("growUp")
-                    .resizable()
-                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
-                    .padding(.leading, 10)
-            } else if previousExchangeRate > exchangeRate  {
-                Image("goDown")
-                    .resizable()
-                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
-                    .padding(.leading, 10)
-            } else if previousExchangeRate == exchangeRate {
-                Image("equal")
-                    .resizable()
-                    .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
-                    .padding(.leading, 10)
-            }
+            Image(dynamicsImage)
+                .resizable()
+                .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
+                .padding(.leading, imagePadding)
+            
         }.padding(.horizontal, 10)
     }
 }

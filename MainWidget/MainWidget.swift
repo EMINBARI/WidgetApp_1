@@ -59,12 +59,13 @@ struct Config: Widget {
         StaticConfiguration(
             kind: kind,
             provider: DataProvider()
-        )
-        { data in
+
+        ) { data in
             WidgetView(data: data)
         }
         .configurationDisplayName(Text("Exchange rates"))
         .supportedFamilies([.systemMedium])
         .description(Text("Shows exchanges rates"))
+        
     }
 }

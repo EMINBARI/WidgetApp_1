@@ -12,24 +12,25 @@ struct DataProvider: TimelineProvider {
     
     func timeline(with context: Context, completion: @escaping (Timeline<WidgetDataModel>) -> ()) {
         let date = Date()
-
+        let noDataPlaceholder = "N/A"
+        
         ExchangeRateLoader().fetchData { result in
             let exchData: ExchangeRate
             if case .success(let fetchedExchData) = result {
                 exchData = fetchedExchData
             } else{
                 exchData = ExchangeRate(
-                    date: "",
-                    previousDate: "",
-                    previousURL: "",
-                    timestamp: "",
+                    date: noDataPlaceholder,
+                    previousDate: noDataPlaceholder,
+                    previousURL: noDataPlaceholder,
+                    timestamp: noDataPlaceholder,
                     valute: [
-                        "": Valute(
-                                id: "",
-                                numCode: "",
-                                charCode: "",
+                        noDataPlaceholder: Valute(
+                                id: noDataPlaceholder,
+                                numCode: noDataPlaceholder,
+                                charCode: noDataPlaceholder,
                                 nominal: 0,
-                                name: "",
+                                name: noDataPlaceholder,
                                 value: 0.0,
                                 previous: 0.0)
                     ]
@@ -80,8 +81,8 @@ struct DataProvider: TimelineProvider {
         let entryData = WidgetDataModel(
             date: date,
             exchangeData: WidgetExchangeRate (
-                exchangingRate: ["USD": 00.0, "EUR":00.0, "GBP": 00.0],
-                previousExchangingRate: ["USD": 00.0, "EUR":00.0, "GBP": 00.0]
+                exchangingRate: ["USD": 0.0, "EUR": 0.0, "GBP": 0.0],
+                previousExchangingRate: ["USD": 0.0, "EUR": 0.0, "GBP": 0.0]
             )
         )
         completion(entryData)
