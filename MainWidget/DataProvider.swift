@@ -75,7 +75,8 @@ struct DataProvider: TimelineProvider {
             print("--EUR previous", exchangeRateData.previousExchangingRate[currenciesSymbols.EUR.rawValue]!)
             print("--GBP previous", exchangeRateData.previousExchangingRate[currenciesSymbols.GBP.rawValue]!)
             
-            let refreshDate = Calendar.current.date(byAdding: .hour, value: 1, to: date)!
+//            let refreshDate = Calendar.current.date(byAdding: .hour, value: 1, to: date)!
+            let refreshDate = Calendar.current.date(byAdding: .minute, value: 15, to: date)!
             let timeLine = Timeline(entries: [entryData], policy: .after(refreshDate))
             
             print("updated")

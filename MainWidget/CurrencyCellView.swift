@@ -43,15 +43,18 @@ struct CurrencyCellView: View {
             Text(self.currencyISO)
                 .foregroundColor(.white)
                 .font(.headline)
+                .padding(.leading, imagePadding)
             Spacer()
             Text("\(String(format: "%.2f", exchangeRate)) ₽")
                 .foregroundColor(.white)
                 .font(.title2)
+                .frame(width: 100, alignment: .trailing)
+                
             
             Image(dynamicsImage)
                 .resizable()
                 .frame(width: dynamicsImagesSize, height: dynamicsImagesSize)
-                .padding(.leading, imagePadding)
+                .padding(.leading, 5)
             
         }.padding(.horizontal, 10)
     }
