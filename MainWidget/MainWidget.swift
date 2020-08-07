@@ -25,24 +25,24 @@ struct WidgetView: View {
             VStack(alignment: .leading) {
                 Spacer()
                 CurrencyCellView(
-                    exchangeRate: data.exchangeData.exchangingRate["USD"]!,
-                    previousExchangeRate: data.exchangeData.previousExchangingRate["USD"]!,
-                    countryISO: "USA",
-                    currencyISO: "USD"
+                    exchangeRate: data.exchangeData.exchangingRate[currenciesSymbols.USD.rawValue]!,
+                    previousExchangeRate: data.exchangeData.previousExchangingRate[currenciesSymbols.USD.rawValue]!,
+                    countryISO: countrySymbols.USA.rawValue,
+                    currencyISO: currenciesSymbols.USD.rawValue
                 )
                 Spacer()
                 CurrencyCellView(
-                    exchangeRate: data.exchangeData.exchangingRate["EUR"]!,
-                    previousExchangeRate: data.exchangeData.previousExchangingRate["EUR"]!,
-                    countryISO: "EU",
-                    currencyISO: "EUR"
+                    exchangeRate: data.exchangeData.exchangingRate[currenciesSymbols.EUR.rawValue]!,
+                    previousExchangeRate: data.exchangeData.previousExchangingRate[currenciesSymbols.EUR.rawValue]!,
+                    countryISO: countrySymbols.EU.rawValue,
+                    currencyISO: currenciesSymbols.EUR.rawValue
                 )
                 Spacer()
                 CurrencyCellView(
-                    exchangeRate: data.exchangeData.exchangingRate["GBP"]!,
-                    previousExchangeRate: data.exchangeData.previousExchangingRate["GBP"]!,
-                    countryISO: "UK",
-                    currencyISO: "GBP"
+                    exchangeRate: data.exchangeData.exchangingRate[currenciesSymbols.GBP.rawValue]!,
+                    previousExchangeRate: data.exchangeData.previousExchangingRate[currenciesSymbols.GBP.rawValue]!,
+                    countryISO: countrySymbols.UK.rawValue,
+                    currencyISO: currenciesSymbols.GBP.rawValue
                 )
                 Spacer()
             }

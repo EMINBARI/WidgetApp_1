@@ -74,8 +74,8 @@ struct CurrencyCellViewPreviews: PreviewProvider {
             CurrencyCellView(
                 exchangeRate: 0.0,
                 previousExchangeRate: 0.0,
-                countryISO: "UK",
-                currencyISO: "GBP"
+                countryISO: countrySymbols.UK.rawValue,
+                currencyISO: currenciesSymbols.GBP.rawValue
             )
         }
         

@@ -14,6 +14,7 @@ struct DataProvider: TimelineProvider {
         let date = Date()
         let noDataPlaceholder = "N/A"
         
+        //MARK: - Fetching data from api
         ExchangeRateLoader().fetchData { result in
             let exchData: ExchangeRate
             if case .success(let fetchedExchData) = result {
@@ -25,7 +26,7 @@ struct DataProvider: TimelineProvider {
                     previousURL: noDataPlaceholder,
                     timestamp: noDataPlaceholder,
                     valute: [
-                        noDataPlaceholder: Valute(
+                        "N/A": Valute(
                                 id: noDataPlaceholder,
                                 numCode: noDataPlaceholder,
                                 charCode: noDataPlaceholder,
@@ -38,24 +39,31 @@ struct DataProvider: TimelineProvider {
             }
             
             guard
-                let dollar = exchData.valute["USD"]?.value,
-                let euro = exchData.valute["EUR"]?.value,
-                let pound = exchData.valute["GBP"]?.value
+                let dollar = exchData.valute[currenciesSymbols.USD.rawValue]?.value,
+                let euro = exchData.valute[currenciesSymbols.EUR.rawValue]?.value,
+                let pound = exchData.valute[currenciesSymbols.GBP.rawValue]?.value
                 else{
-                    fatalError("Error with fetching data")
+                    return assertionFailure("Error with fetching data")
             }
 
             guard
-                let dollarPrevious = exchData.valute["USD"]?.previous,
-                let euroPrevious = exchData.valute["EUR"]?.previous,
-                let poundPrevious = exchData.valute["GBP"]?.previous
+                let dollarPrevious = exchData.valute[currenciesSymbols.USD.rawValue]?.previous,
+                let euroPrevious = exchData.valute[currenciesSymbols.EUR.rawValue]?.previous,
+                let poundPrevious = exchData.valute[currenciesSymbols.GBP.rawValue]?.previous
                 else{
-                    fatalError("Error with fetching data")
+                    return assertionFailure("Error with fetching data")
+                
             }
             
             let exchangeRateData = WidgetExchangeRate(
-                exchangingRate: ["USD": dollar, "EUR": euro, "GBP": pound],
-                previousExchangingRate: ["USD": dollarPrevious, "EUR":euroPrevious, "GBP": poundPrevious]
+                exchangingRate: [
+                    currenciesSymbols.USD.rawValue: dollar,
+                    currenciesSymbols.EUR.rawValue: euro,
+                    currenciesSymbols.GBP.rawValue: pound],
+                previousExchangingRate: [
+                    currenciesSymbols.USD.rawValue: dollarPrevious,
+                    currenciesSymbols.EUR.rawValue:euroPrevious,
+                    currenciesSymbols.GBP.rawValue: poundPrevious]
             )
             
             let entryData = WidgetDataModel(
@@ -63,9 +71,9 @@ struct DataProvider: TimelineProvider {
                 exchangeData: exchangeRateData
             )
             
-            print("--USD previous", exchangeRateData.previousExchangingRate["USD"]!)
-            print("--EUR previous", exchangeRateData.previousExchangingRate["EUR"]!)
-            print("--GBP previous", exchangeRateData.previousExchangingRate["GBP"]!)
+            print("--USD previous", exchangeRateData.previousExchangingRate[currenciesSymbols.USD.rawValue]!)
+            print("--EUR previous", exchangeRateData.previousExchangingRate[currenciesSymbols.EUR.rawValue]!)
+            print("--GBP previous", exchangeRateData.previousExchangingRate[currenciesSymbols.GBP.rawValue]!)
             
             let refreshDate = Calendar.current.date(byAdding: .hour, value: 1, to: date)!
             let timeLine = Timeline(entries: [entryData], policy: .after(refreshDate))
@@ -81,8 +89,15 @@ struct DataProvider: TimelineProvider {
         let entryData = WidgetDataModel(
             date: date,
             exchangeData: WidgetExchangeRate (
-                exchangingRate: ["USD": 0.0, "EUR": 0.0, "GBP": 0.0],
-                previousExchangingRate: ["USD": 0.0, "EUR": 0.0, "GBP": 0.0]
+                exchangingRate: [
+                    currenciesSymbols.USD.rawValue: 0.0,
+                    currenciesSymbols.EUR.rawValue: 0.0,
+                    currenciesSymbols.GBP.rawValue: 0.0],
+                
+                previousExchangingRate: [
+                    currenciesSymbols.USD.rawValue: 0.0,
+                    currenciesSymbols.EUR.rawValue: 0.0,
+                    currenciesSymbols.GBP.rawValue: 0.0]
             )
         )
         completion(entryData)

@@ -9,10 +9,10 @@ import Foundation
 
 class ExchangeRateLoader {
     
+    private let resourceUrl = "https://www.cbr-xml-daily.ru/daily_json.js"
+    
     func fetchData(complited: @escaping (Result<ExchangeRate, Error>) -> ()){
-        guard let url = URL(string: "https://www.cbr-xml-daily.ru/daily_json.js") else{
-            fatalError("Bad url adress")
-        }
+        guard let url = URL(string: resourceUrl) else{return}
         URLSession.shared.dataTask(with: url){ (data, respons, error) in
             if error == nil {
                 do{
@@ -20,7 +20,7 @@ class ExchangeRateLoader {
                     complited(.success(exchData))
                 }
                 catch{
-                    print("Error")
+                    complited(.failure(error))
                 }
             }
         }.resume()
